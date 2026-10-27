@@ -47,7 +47,7 @@ export function Ring({ pct, size = 120, stroke = 10, children, color = "rgb(var(
 }
 
 export function Table<T>({ cols, rows }: { cols: { h: string; c: (r: T) => ReactNode; className?: string }[]; rows: T[] }) {
-  return <div className="overflow-x-auto"><table className="w-full text-left text-sm"><thead><tr className="border-b border-line text-muted">{cols.map((c) => <th key={c.h} className={cn("px-4 py-3 font-semibold", c.className)}>{c.h}</th>)}</tr></thead><tbody>{rows.map((r, i) => <motion.tr key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i * 0.03, 0.4) }} className="border-b border-line/60 last:border-0 hover:bg-ink/[0.03]">{cols.map((c) => <td key={c.h} className={cn("px-4 py-3", c.className)}>{c.c(r)}</td>)}</motion.tr>)}</tbody></table></div>;
+  return <div className="w-full min-w-0 overflow-x-clip"><table className="w-full table-fixed text-left text-sm"><thead><tr className="border-b border-line text-muted">{cols.map((c) => <th key={c.h} className={cn("break-words px-2 py-3 font-semibold sm:px-4", c.className)}>{c.h}</th>)}</tr></thead><tbody>{rows.map((r, i) => <motion.tr key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i * 0.03, 0.4) }} className="border-b border-line/60 last:border-0 hover:bg-ink/[0.03]">{cols.map((c) => <td key={c.h} className={cn("break-words px-2 py-3 sm:px-4", c.className)}>{c.c(r)}</td>)}</motion.tr>)}</tbody></table></div>;
 }
 
 export function Avatar({ name, size = 36 }: { name: string; size?: number }) {

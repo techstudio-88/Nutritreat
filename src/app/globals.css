@@ -23,7 +23,7 @@
   --line: 214 218 226;
 }
 
-html { color-scheme: dark; }
+html { color-scheme: dark; overflow-x: clip; }
 html[data-theme="light"] { color-scheme: light; }
 
 body {
@@ -154,3 +154,11 @@ button:active, [role="button"]:active, [role="switch"]:active {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* App-wide overflow and touch reliability. */
+*, *::before, *::after { box-sizing: border-box; }
+img, video, canvas, svg { max-width: 100%; }
+main, section, article, aside, header, footer, nav, form { min-width: 0; }
+button, a, [role="button"], input, select, textarea { touch-action: manipulation; }
+@supports not (overflow: clip) { html, body { overflow-x: hidden; } }

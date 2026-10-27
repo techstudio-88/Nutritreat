@@ -13,8 +13,8 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   const tabs = config.member.tabs.filter((t) => t.enabled);
 
   return (
-    <div className="mx-auto min-h-screen max-w-md pb-24 lg:my-6 lg:min-h-0 lg:overflow-hidden lg:rounded-[2rem] lg:border lg:border-line lg:bg-chalk/70 lg:backdrop-blur">
-      <header className="flex items-center justify-between px-4 pt-5">
+    <div className="mx-auto min-h-screen w-full max-w-md overflow-x-clip pb-28 lg:my-6 lg:min-h-[calc(100vh-3rem)] lg:max-w-6xl lg:rounded-[2rem] lg:border lg:border-line lg:bg-chalk/70 lg:backdrop-blur">
+      <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 pt-5 lg:px-8">
         <div className="flex items-center gap-2">
           <BrandMark />
           <span className="display text-xl">{config.brand.name}</span>
@@ -30,13 +30,13 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
         initial={{ opacity: 0, x: 18 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.28 }}
-        className="px-4 pt-5"
+        className="mx-auto w-full max-w-6xl px-4 pt-5 lg:px-8"
       >
         {children}
       </motion.main>
       <nav
         aria-label="Main"
-        className="fixed inset-x-0 bottom-3 z-40 mx-auto flex max-w-[22rem] justify-around rounded-full border border-line bg-surface/80 px-2 py-2 shadow-2xl backdrop-blur-xl"
+        className="fixed inset-x-0 bottom-3 z-40 mx-auto flex max-w-[22rem] justify-around rounded-full border border-line bg-surface/95 px-2 py-2 shadow-2xl backdrop-blur-xl lg:bottom-6"
       >
         {tabs.map((t) => {
           const href = TAB_HREF[t.id];
