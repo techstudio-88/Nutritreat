@@ -18,7 +18,7 @@ export function Counter({ value, prefix = "", suffix = "", decimals = 0 }: { val
 }
 
 export function Card({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cn("rounded-xl border border-line bg-surface", className)}>{children}</div>;
+  return <div className={cn("card", className)}>{children}</div>;
 }
 
 type Tone = "ok" | "warn" | "info" | "mute";
@@ -28,8 +28,8 @@ export function Badge({ tone = "mute", children }: { tone?: Tone; children: Reac
 }
 
 export function Button({ children, onClick, variant = "primary", className, type = "button", disabled }: { children: ReactNode; onClick?: () => void; variant?: "primary" | "ghost" | "ember"; className?: string; type?: "button" | "submit"; disabled?: boolean }) {
-  const v = { primary: "bg-plate text-white hover:brightness-110", ember: "bg-ember text-white hover:brightness-110", ghost: "border border-line bg-surface text-ink hover:bg-ink/5" }[variant];
-  return <motion.button type={type} disabled={disabled} onClick={onClick} whileTap={{ scale: 0.97 }} className={cn("inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-semibold transition disabled:opacity-50", v, className)}>{children}</motion.button>;
+  const v = { primary: "glow-btn bg-plate text-onplate hover:brightness-110", ember: "bg-ember text-black hover:brightness-110", ghost: "border border-line bg-surface text-ink hover:bg-ink/5" }[variant];
+  return <motion.button type={type} disabled={disabled} onClick={onClick} whileTap={{ scale: 0.97 }} className={cn("inline-flex items-center justify-center gap-2 rounded-ctl px-4 py-2 text-sm font-semibold transition disabled:opacity-50", v, className)}>{children}</motion.button>;
 }
 
 export function PageHeader({ title, sub, action }: { title: string; sub?: string; action?: ReactNode }) {
