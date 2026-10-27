@@ -76,9 +76,7 @@ export default function Landing() {
             <Link href="/login" className="px-3 py-2 text-sm font-semibold">
               Log in
             </Link>
-            <Link href="/login">
-              <Button>Start free</Button>
-            </Link>
+            <Link href="/login" className="glow-btn inline-flex items-center justify-center gap-2 rounded-ctl bg-plate px-4 py-2 text-sm font-semibold text-onplate transition hover:brightness-110 active:scale-[0.98]">Start free</Link>
           </nav>
         </div>
       </header>
@@ -110,14 +108,8 @@ export default function Landing() {
             The all-in-one app for gym owners, with a member app that looks exactly how you design it. Change a colour and every member sees it.
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }} className="mt-8 flex flex-wrap gap-3">
-            <Link href="/login">
-              <Button className="px-6 py-3 text-base">Create your gym</Button>
-            </Link>
-            <Link href="/admin">
-              <Button variant="ghost" className="px-6 py-3 text-base">
-                Try the owner demo
-              </Button>
-            </Link>
+            <Link href="/login" className="glow-btn inline-flex items-center justify-center gap-2 rounded-ctl bg-plate px-6 py-3 text-base font-semibold text-onplate transition hover:brightness-110 active:scale-[0.98]">Create your gym</Link>
+            <Link href="/admin" className="inline-flex items-center justify-center gap-2 rounded-ctl border border-line bg-surface px-6 py-3 text-base font-semibold text-ink transition hover:bg-ink/5 active:scale-[0.98]">Try the owner demo</Link>
           </motion.div>
         </motion.div>
 
@@ -321,9 +313,7 @@ export default function Landing() {
                 </li>
               ))}
             </ul>
-            <Link href="/login" className="mt-6 block">
-              <Button className="w-full">Create your gym</Button>
-            </Link>
+            <Link href="/login" className="glow-btn mt-6 flex w-full items-center justify-center rounded-ctl bg-plate px-4 py-3 text-sm font-semibold text-onplate transition hover:brightness-110 active:scale-[0.98]">Create your gym</Link>
           </Card>
         </div>
       </section>
