@@ -128,10 +128,25 @@ body {
 input, select, textarea { color: rgb(var(--ink)); }
 select option { background: rgb(var(--surface)); color: rgb(var(--ink)); }
 
-[data-motion="off"] *, [data-motion="off"] *::before, [data-motion="off"] *::after {
+/* Motion preference only pauses ambient background loops, not UI feedback or page transitions. */
+[data-motion="off"] .blob,
+[data-motion="off"] [data-bg="grid"] .bg-layer {
   animation: none !important;
-  transition-duration: 0s !important;
 }
+
+/* Make taps respond immediately on iOS/Android and avoid delayed double-tap zoom. */
+a, button, [role="button"], [role="switch"], input, select, textarea, label {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, [role="button"], [role="switch"] {
+  cursor: pointer;
+}
+button:active, [role="button"]:active, [role="switch"]:active {
+  filter: brightness(0.96);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
