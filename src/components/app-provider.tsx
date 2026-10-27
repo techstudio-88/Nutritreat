@@ -217,7 +217,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   return (
     <AppCtx.Provider value={value}>
-      <MotionConfig reducedMotion={config.brand.motion ? "user" : "always"}>
+      <MotionConfig reducedMotion="user">
         {children}
         <AnimatePresence>
           {booting && (
