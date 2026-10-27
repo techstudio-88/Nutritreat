@@ -27,6 +27,9 @@ html { color-scheme: dark; overflow-x: clip; }
 html[data-theme="light"] { color-scheme: light; }
 
 body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   background: rgb(var(--chalk));
   color: rgb(var(--ink));
   font-family: var(--font-archivo), system-ui, sans-serif;

@@ -37,17 +37,45 @@ export default function CheckIn() {
     try {
       const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}},audio:false});
       streamRef.current=stream;
-      if(videoRef.current){videoRef.current.srcObject=stream;await videoRef.current.play();}
-      setCameraOn(true);setScanning(true);const detector=new Ctor({formats:["qr_code"]});
-      timerRef.current=setInterval(async()=>{
-        if(busyRef.current||!videoRef.current||videoRef.current.readyState<2)return;
-        busyRef.current=true;
-        try { const codes=await detector.detect(videoRef.current);if(codes.length&&codes[0].rawValue){handleQr(codes[0].rawValue);stopCamera();} }
-        catch { setCameraError("Could not read this QR. Keep it inside the frame or use manual search."); }
-        finally { busyRef.current=false; }
-      },300);
-    } catch(error) { setCameraError(error instanceof Error&&error.name==="NotAllowedError"?"Camera permission was denied. Allow camera access in browser settings.":"Could not start the camera. Check that another app is not using it.");stopCamera(); }
+      setCameraOn(true);
+      setScanning(true);
+    } catch(error) {
+      setCameraError(error instanceof Error&&error.name==="NotAllowedError"?"Camera permission was denied. Allow camera access in browser settings.":"Could not start the camera. Check that another app is not using it.");
+      stopCamera();
+    }
   }
+
+  useEffect(()=>{
+    if(!cameraOn) return;
+    let cancelled=false;
+    const Ctor=(window as Window & {BarcodeDetector?:new(options?:{formats:string[]})=>Detector}).BarcodeDetector;
+    const initialise=async()=>{
+      const video=videoRef.current;
+      const stream=streamRef.current;
+      if(!video||!stream||!Ctor) return;
+      try {
+        video.srcObject=stream;
+        await video.play();
+        if(cancelled) return;
+        const detector=new Ctor({formats:["qr_code"]});
+        timerRef.current=setInterval(async()=>{
+          if(busyRef.current||!videoRef.current||videoRef.current.readyState<2) return;
+          busyRef.current=true;
+          try {
+            const codes=await detector.detect(videoRef.current);
+            if(codes.length&&codes[0].rawValue){handleQr(codes[0].rawValue);stopCamera();}
+          } catch { setCameraError("Could not read this QR. Keep it inside the frame or use manual search."); }
+          finally { busyRef.current=false; }
+        },300);
+      } catch {
+        setCameraError("Could not start video preview. Check camera permissions and try again.");
+        stopCamera();
+      }
+    };
+    void initialise();
+    return ()=>{cancelled=true;if(timerRef.current)clearInterval(timerRef.current);timerRef.current=null;};
+  },[cameraOn]);
+
   function stopCamera() {
     if(timerRef.current)clearInterval(timerRef.current);timerRef.current=null;
     streamRef.current?.getTracks().forEach(t=>t.stop());streamRef.current=null;
